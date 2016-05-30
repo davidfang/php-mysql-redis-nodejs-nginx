@@ -3,14 +3,26 @@ nginx:
     ports:
       - "80:80"
     links:
-      - "php"
+      - "php-fpm"
     volumes:
       - ~/opt:/opt
 
-php:
+php-fpm:
     build: ./php
     ports:
       - "9000:9000"
+    links:
+      - "mysql"
+      - "redis"
+    volumes:
+      - ~/opt:/opt
+php-cli:
+    build: ./php
+    working_dir: /php-cli
+    tty: true
+    stdin_open: true
+    command: '/bin/bash'
+    tty: true
     links:
       - "mysql"
       - "redis"
@@ -25,6 +37,9 @@ mysql:
       - ~/opt/data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: yii2-starter-kit
+      MYSQL_USER: ysk_dbu
+      MYSQL_PASSWORD: ysk_pass
 
 redis:
     build: ./redis
