@@ -1,15 +1,16 @@
 nginx:
-    build: ./nginx
+    build: ./docker/nginx
     ports:
       - "80:80"
     links:
       - "php-fpm"
     volumes:
       - ./opt/htdocs:/opt
-      - ./nginx/vhost:/etc/nginx/conf.d
+      - ./opt/log/nginx:/log
+      - ./docker/nginx/vhost:/etc/nginx/conf.d
 
 php-fpm:
-    build: ./php
+    build: ./docker/php
     expose:
       - 9000
     links:
@@ -18,7 +19,7 @@ php-fpm:
     volumes:
       - ./opt/htdocs:/opt
 php-cli:
-    build: ./php
+    build: ./docker/php
     working_dir: /opt
     tty: true
     stdin_open: true
@@ -31,7 +32,7 @@ php-cli:
       - ./opt/htdocs:/opt
 
 mysql:
-    build: ./mysql
+    build: ./docker/mysql
     ports:
       - "3306:3306"
     volumes:
@@ -43,6 +44,6 @@ mysql:
       MYSQL_PASSWORD: dbpass
 
 redis:
-    build: ./redis
+    build: ./docker/redis
     ports:
       - "6379:6379"
