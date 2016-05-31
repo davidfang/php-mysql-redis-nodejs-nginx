@@ -3,7 +3,7 @@ nginx:
     ports:
       - "80:80"
     links:
-      - php-fpm
+      - "php-fpm"
     volumes:
       - ./opt/htdocs:/opt
       - ./nginx/vhost:/etc/nginx/conf.d
