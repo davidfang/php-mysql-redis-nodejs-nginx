@@ -51,8 +51,8 @@ redis:
 
 node:
     build: ./docker/node
-    ports:
-      - "3000:3000"
+    expose:
+      - 3000
     links:
       - "mysql"
       - "redis"
