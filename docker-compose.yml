@@ -4,6 +4,7 @@ nginx:
       - "80:80"
     links:
       - "php-fpm"
+      - "node"
     volumes:
       - ./opt/htdocs:/opt
       - ./opt/log/nginx:/log
@@ -47,3 +48,13 @@ redis:
     build: ./docker/redis
     ports:
       - "6379:6379"
+
+node:
+    build: ./docker/node
+    ports:
+      - "3000:3000"
+    links:
+      - "mysql"
+      - "redis"
+    volumes:
+      - ./opt/htdocs/node:/usr/src/app 
