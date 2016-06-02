@@ -48,6 +48,8 @@ redis:
     build: ./docker/redis
     ports:
       - "6379:6379"
+    volumes:
+      - ./opt/data/redis:/var/lib/redis
 
 node:
     build: ./docker/node
@@ -58,3 +60,5 @@ node:
       - "redis"
     volumes:
       - ./opt/htdocs/node:/usr/src/app 
+    #command: npm install
+    command: npm start
