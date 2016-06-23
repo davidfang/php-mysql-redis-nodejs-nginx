@@ -5,6 +5,7 @@ nginx:
     links:
       - "php-fpm"
       - "node"
+      - "node-socket"
     volumes:
       - ./opt/htdocs/nginx-php:/opt
       - ./opt/log/nginx:/log
@@ -64,3 +65,16 @@ node:
       - ./opt/htdocs/node-wp:/usr/src/app 
     #command: npm install
     command: npm start
+
+node-socket:
+    build: ./docker/node
+    expose:
+      - 8080
+    links:
+      - "mysql"
+      - "redis"
+    volumes:
+      - ./opt/htdocs/node-wp:/usr/src/app 
+    #command: npm install
+    #command: npm start
+    command: npm run client

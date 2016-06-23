@@ -1,3 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 node/*
 !node/.gitignore 
+nginx-php/*
+nginx-php/frontend/web/index.php
+nginx-php/backend/web/index.php
+!nginx-php/.gitignore
